@@ -4,8 +4,7 @@ import tkinter as tk
 from tkinter import messagebox, ttk 
  
 class TicTacToeGUI: 
-    def __init__(self, root): 
-        
+    def __init__(self, root):
         self.root = root 
         self.root.title("Tic Tac Toe") 
         self.root.geometry("400x500") 
@@ -16,7 +15,6 @@ class TicTacToeGUI:
         self.game_over = False 
         self.scores = {"Wins": 0, "Losses": 0, "Draws": 0} 
         self.difficulty = "medium" 
-
         self.create_widgets() 
          
     def create_widgets(self): 
@@ -33,8 +31,7 @@ class TicTacToeGUI:
         diff_frame = tk.Frame(self.root) 
         diff_frame.pack(pady=5) 
          
-        tk.Label(diff_frame, text="Select Difficulty:").pack(side=tk.LEFT) 
-         
+        tk.Label(diff_frame, text="Select Difficulty:").pack(side=tk.LEFT)
         self.diff_var = tk.StringVar(value=self.difficulty) 
         diff_menu = ttk.Combobox( 
             diff_frame,  
@@ -52,18 +49,17 @@ class TicTacToeGUI:
         self.score_label = tk.Label( 
     score_frame, 
     text=f"Wins: {self.scores['Wins']}  Losses: {self.scores['Losses']}  Draws: {self.scores['Draws']}", 
-    font=("Arial", 10) 
-)
-        self.score_label.pack() 
-         
+    font=("Arial", 10) )
+     
+        self.score_label.pack()  
         self.board_frame = tk.Frame(self.root) 
         self.board_frame.pack(pady=10) 
          
-        self.buttons = [] 
+        self.buttons=[] 
         for i in range(3): 
-            row = [] 
+            row=[] 
             for j in range(3): 
-                button = tk.Button( 
+                button=tk.Button( 
                     self.board_frame, 
                     text=" ", 
                     font=("Arial", 24, "bold"), 
@@ -75,10 +71,10 @@ class TicTacToeGUI:
                 row.append(button) 
             self.buttons.append(row) 
          
-        reset_frame = tk.Frame(self.root) 
+        reset_frame=tk.Frame(self.root) 
         reset_frame.pack(pady=10) 
          
-        reset_btn = tk.Button( 
+        reset_btn=tk.Button( 
             reset_frame, 
             text="New Game", 
             command=self.reset_game, 
