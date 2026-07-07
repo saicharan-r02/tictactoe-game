@@ -38,7 +38,6 @@ TicTacToe/
 │
 ├── tic_tac_toe.py
 ├── README.md
-└── screenshots/
 ```
 
 ---
@@ -60,13 +59,13 @@ python --version
 ## Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/TicTacToe.git
+git clone https://github.com/saicharan-r02/tictactoe-game
 ```
 
 Move into the project folder:
 
 ```bash
-cd TicTacToe
+cd tictactoe
 ```
 
 ---
