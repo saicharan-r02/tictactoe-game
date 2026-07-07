@@ -1,7 +1,9 @@
 import random 
 import math 
 import tkinter as tk 
-from tkinter import messagebox, ttk 
+from tkinter import messagebox, ttk
+
+from pyparsing import col 
  
 class TicTacToeGUI: 
     def __init__(self, root):
@@ -160,48 +162,61 @@ class TicTacToeGUI:
            all(self.board[i][2 - i] == player for i in range(3)) ): 
             return True 
         return False 
+    
+    def check_winner_board(self, board, player):
+        for row in board:
+            if all(cell == player for cell in row):
+                return True
+
+        for col in range(3):
+            if all(board[row][col] == player for row in range(3)):
+                return True
+            
+        if all(board[i][i] == player for i in range(3)):
+            return True
+
+        if all(board[i][2 - i] == player for i in range(3)):
+            return True
+
+        return False
  
+
     def is_draw(self): 
         return all(cell != " " for row in self.board for cell in row) 
+    
+    def is_draw_board(self, board):
+        return all(cell != " " for row in board for cell in row)
  
     def get_available_moves(self, board): 
         return [(r, c) for r in range(3) for c in range(3) if board[r][c] == " "] 
 
     def easy_ai(self, board): 
-        return random.choice(self.get_available_moves(board)) 
- 
-    def minimax(self, board, depth, is_maximizing):
-     if self.check_winner_board(board, "O"):
-      return 10 - depth
-     if self.check_winner_board(board, "X"):
-      return depth - 10
-     if self.is_draw_board(board):
-      return 0
+        return random.choice(self.get_available_moves(board))
      
-     if is_maximizing:
-         best_score = -math.inf
-         for row, col in self.get_available_moves(board):
-             board[row][col] = "O"
-             score = self.minimax(board, depth + 1, False)
-             board[row][col] = " "
-             best_score = max(best_score, score)
-         return best_score
-     else:
-         best_score = math.inf
-         for row, col in self.get_available_moves(board):
-             board[row][col] = "X"
-             score = self.minimax(board, depth + 1, True)
-             board[row][col] = " "
-             best_score = min(best_score, score)
-         return best_score 
-         else: 
-             best = math.inf 
-             for row, col in self.get_available_moves(board): 
-                 board[row][col] = "X" 
-                 score = self.minimax(board, depth + 1, True) 
-                 board[row][col] = " " 
-                 best = min(best, score) 
-             return best 
+    def minimax(self, board, depth, is_maximizing):
+        if self.check_winner_board(board, "O"):
+            return 10 - depth
+        if self.check_winner_board(board, "X"):
+            return depth - 10
+        if self.is_draw_board(board):
+            return 0
+        if is_maximizing:
+            best_score = -math.inf
+            for row, col in self.get_available_moves(board):
+                board[row][col] = "O"
+                score = self.minimax(board, depth + 1, False)
+                board[row][col] = " "
+                best_score = max(best_score, score)
+            return best_score
+
+        else:
+            best_score = math.inf
+            for row, col in self.get_available_moves(board):
+                board[row][col] = "X"
+                score = self.minimax(board, depth + 1, True)
+                board[row][col] = " "
+                best_score = min(best_score, score)
+            return best_score 
           
     def hard_ai(self, board): 
         best_score = -math.inf 
