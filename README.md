@@ -223,6 +223,3 @@ If you found this project useful, consider giving the repository a ⭐ on GitHub
 
 
 # Output
-
-![OUTPUT](<Screenshot 2026-07-07 211600.png>)
-  
