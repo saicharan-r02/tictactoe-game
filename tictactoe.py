@@ -170,32 +170,39 @@ class TicTacToeGUI:
     def easy_ai(self, board): 
         return random.choice(self.get_available_moves(board)) 
  
-    def minimax(self, board, depth, is_maximizing): 
-        if self.check_winner("O"): 
-            return 1 
-        if self.check_winner("X"): 
-            return -1 
-        if self.is_draw(): 
-            return 0 
- 
-        if is_maximizing: 
-            best = -math.inf 
-            for row, col in self.get_available_moves(board): 
-                board[row][col] = "O" 
-                score = self.minimax(board, depth + 1, False) 
-                board[row][col] = " " 
-                best = max(best, score) 
-            return best 
-        else: 
-            best = math.inf 
-            for row, col in self.get_available_moves(board): 
-                board[row][col] = "X" 
-                score = self.minimax(board, depth + 1, True) 
-                board[row][col] = " " 
-                best = min(best, score) 
-            return best 
-
- 
+    def minimax(self, board, depth, is_maximizing):
+     if self.check_winner_board(board, "O"):
+      return 10 - depth
+     if self.check_winner_board(board, "X"):
+      return depth - 10
+     if self.is_draw_board(board):
+      return 0
+     
+     if is_maximizing:
+         best_score = -math.inf
+         for row, col in self.get_available_moves(board):
+             board[row][col] = "O"
+             score = self.minimax(board, depth + 1, False)
+             board[row][col] = " "
+             best_score = max(best_score, score)
+         return best_score
+     else:
+         best_score = math.inf
+         for row, col in self.get_available_moves(board):
+             board[row][col] = "X"
+             score = self.minimax(board, depth + 1, True)
+             board[row][col] = " "
+             best_score = min(best_score, score)
+         return best_score 
+         else: 
+             best = math.inf 
+             for row, col in self.get_available_moves(board): 
+                 board[row][col] = "X" 
+                 score = self.minimax(board, depth + 1, True) 
+                 board[row][col] = " " 
+                 best = min(best, score) 
+             return best 
+          
     def hard_ai(self, board): 
         best_score = -math.inf 
         best_move = None 
