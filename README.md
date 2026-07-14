@@ -1,16 +1,13 @@
-
 # 🎮 Tic Tac Toe AI
 
 A desktop-based **Tic Tac Toe** game developed using **Python** and **Tkinter**, featuring an interactive graphical user interface (GUI) and an AI opponent with three difficulty levels. The project demonstrates game logic implementation, GUI development, and the **Minimax Algorithm** for optimal AI decision-making.
 
 ---
-
 # 📌 Features
 
 * 🎨 Interactive GUI built with Tkinter
 * 🤖 Human vs Computer gameplay
 * 🎯 Three AI difficulty levels:
-
   * Easy (Random Moves)
   * Medium (Random + Minimax)
   * Hard (Minimax Algorithm)
@@ -21,14 +18,12 @@ A desktop-based **Tic Tac Toe** game developed using **Python** and **Tkinter**,
 * 🧠 Unbeatable AI in Hard mode
 
 ---
-
 # 🛠️ Technologies Used
 
 * Python 3.x
 * Tkinter
 * Random
 * Math
-
 ---
 
 # 📂 Project Structure
@@ -47,37 +42,28 @@ TicTacToe/
 ## Prerequisites
 
 * Python 3.x installed on your system
-
+  
 You can verify your installation by running:
-
 ```bash
 python --version
 ```
-
 ---
 
 ## Clone the Repository
-
 ```bash
 git clone https://github.com/saicharan-r02/tictactoe-game
 ```
-
 Move into the project folder:
-
 ```bash
 cd tictactoe
 ```
-
 ---
 
 ## Run the Application
-
 ```bash
 python tic_tac_toe.py
 ```
-
 The game window will open automatically.
-
 ---
 
 # 🎮 How to Play
