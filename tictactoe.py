@@ -1,23 +1,37 @@
-import random 
-import math 
-import tkinter as tk 
+"""
+Tic Tac Toe AI Game
+===================
+A desktop-based Tic Tac Toe game built with Python and Tkinter.
+Features an AI opponent with three difficulty levels:
+  - Easy   : Random moves
+  - Medium : 50% random, 50% Minimax
+  - Hard   : Full Minimax (unbeatable)
+
+Author : Sai Charan
+"""
+
+import random
+import math
+import tkinter as tk
 from tkinter import messagebox, ttk
 
-from pyparsing import col 
- 
-class TicTacToeGUI: 
+class TicTacToeGUI:
+    """Main GUI class for the Tic Tac Toe game."""
+
     def __init__(self, root):
-        self.root = root 
-        self.root.title("Tic Tac Toe") 
-        self.root.geometry("400x500") 
-        self.root.resizable(False, False) 
-         
-        self.board = [[" " for _ in range(3)] for _ in range(3)] 
-        self.current_player = "X" 
-        self.game_over = False 
-        self.scores = {"Wins": 0, "Losses": 0, "Draws": 0} 
-        self.difficulty = "medium" 
-        self.create_widgets() 
+        """Initialize the game window, board state, and widgets."""
+        self.root = root
+        self.root.title("Tic Tac Toe")
+        self.root.geometry("400x500")
+        self.root.resizable(False, False)
+
+        # 3x3 board represented as a list of lists
+        self.board = [[" " for _ in range(3)] for _ in range(3)]
+        self.current_player = "X"
+        self.game_over = False
+        self.scores = {"Wins": 0, "Losses": 0, "Draws": 0}
+        self.difficulty = "medium"  # default difficulty
+        self.create_widgets()
          
     def create_widgets(self): 
         title_frame = tk.Frame(self.root) 
@@ -85,13 +99,16 @@ class TicTacToeGUI:
         ) 
         reset_btn.pack() 
      
-    def change_difficulty(self, event): 
-        self.difficulty = self.diff_var.get() 
-        self.reset_game() 
-     
-    def on_click(self, row, col): 
-        if self.game_over or self.board[row][col] != " ": 
-            return 
+    def change_difficulty(self, event):
+        """Handle difficulty change from dropdown and reset the board."""
+        self.difficulty = self.diff_var.get()
+        self.reset_game()
+
+    def on_click(self, row, col):
+        """Handle a player click on the board at (row, col)."""
+        # Ignore clicks if the game is over or the cell is already occupied
+        if self.game_over or self.board[row][col] != " ":
+            return
         
         self.make_move(row, col, "X") 
          
@@ -131,18 +148,20 @@ class TicTacToeGUI:
             self.update_score() 
             messagebox.showinfo("Game Over", "It's a draw!") 
      
-    def make_move(self, row, col, player): 
-        self.board[row][col] = player 
-        self.buttons[row][col].config( 
-            text=player,  
-            state=tk.DISABLED, 
-            fg="red" if player == "X" else "blue" 
-        ) 
-     
-    def update_score(self): 
-        self.score_label.config( 
-            text=f"Wins: {self.scores['Wins']}  Losses: {self.scores['Losses']}  Draws: {self.scores['Draws']}" 
-        ) 
+    def make_move(self, row, col, player):
+        """Place a player's mark on the board and update the corresponding button."""
+        self.board[row][col] = player
+        self.buttons[row][col].config(
+            text=player,
+            state=tk.DISABLED,
+            fg="red" if player == "X" else "blue"  # X = red, O = blue
+        )
+
+    def update_score(self):
+        """Refresh the score label with current win/loss/draw counts."""
+        self.score_label.config(
+            text=f"Wins: {self.scores['Wins']}  Losses: {self.scores['Losses']}  Draws: {self.scores['Draws']}"
+        )
      
     def reset_game(self): 
         self.board = [[" " for _ in range(3)] for _ in range(3)] 
@@ -190,17 +209,24 @@ class TicTacToeGUI:
     def get_available_moves(self, board): 
         return [(r, c) for r in range(3) for c in range(3) if board[r][c] == " "] 
 
-    def easy_ai(self, board): 
+    def easy_ai(self, board):
+        """Easy AI: choose a random available cell."""
         return random.choice(self.get_available_moves(board))
-     
+
     def minimax(self, board, depth, is_maximizing):
+        """
+        Minimax algorithm for optimal AI decision-making.
+        Scores terminal states relative to search depth so the AI
+        prefers faster wins and longer losses.
+        """
         if self.check_winner_board(board, "O"):
-            return 10 - depth
+            return 10 - depth  # AI wins sooner = better score
         if self.check_winner_board(board, "X"):
-            return depth - 10
+            return depth - 10  # Player wins sooner = worse score
         if self.is_draw_board(board):
             return 0
-        if is_maximizing:
+
+        if is_maximizing:  # AI's turn — maximize score
             best_score = -math.inf
             for row, col in self.get_available_moves(board):
                 board[row][col] = "O"
@@ -208,41 +234,42 @@ class TicTacToeGUI:
                 board[row][col] = " "
                 best_score = max(best_score, score)
             return best_score
-
-        else:
+        else:  # Player's turn — minimize score
             best_score = math.inf
             for row, col in self.get_available_moves(board):
                 board[row][col] = "X"
                 score = self.minimax(board, depth + 1, True)
                 board[row][col] = " "
                 best_score = min(best_score, score)
-            return best_score 
-          
-    def hard_ai(self, board): 
-        best_score = -math.inf 
-        best_move = None 
-        for row, col in self.get_available_moves(board): 
-            board[row][col] = "O" 
-            score = self.minimax(board, 0, False) 
-            board[row][col] = " " 
-            if score > best_score: 
-                best_score = score 
-                best_move = (row, col) 
-        return best_move 
- 
+            return best_score
 
-    def medium_ai(self, board): 
-        return self.easy_ai(board) if random.random() < 0.5 else self.hard_ai(board) 
- 
-    def ai_move_logic(self, board, difficulty): 
-        if difficulty == "easy": 
-            return self.easy_ai(board) 
-        elif difficulty == "medium": 
-            return self.medium_ai(board) 
-        elif difficulty == "hard": 
-            return self.hard_ai(board) 
+    def hard_ai(self, board):
+        """Hard AI: use Minimax to find the best possible move."""
+        best_score = -math.inf
+        best_move = None
+        for row, col in self.get_available_moves(board):
+            board[row][col] = "O"
+            score = self.minimax(board, 0, False)
+            board[row][col] = " "
+            if score > best_score:
+                best_score = score
+                best_move = (row, col)
+        return best_move
 
-if __name__ == "__main__": 
-    r= tk.Tk() 
-    game = TicTacToeGUI(r) 
-    r.mainloop()
+    def medium_ai(self, board):
+        """Medium AI: randomly choose between easy (random) and hard (Minimax)."""
+        return self.easy_ai(board) if random.random() < 0.5 else self.hard_ai(board)
+
+    def ai_move_logic(self, board, difficulty):
+        """Dispatch the AI move to the appropriate strategy based on difficulty."""
+        if difficulty == "easy":
+            return self.easy_ai(board)
+        elif difficulty == "medium":
+            return self.medium_ai(board)
+        elif difficulty == "hard":
+            return self.hard_ai(board)
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    game = TicTacToeGUI(root)
+    root.mainloop()
