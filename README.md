@@ -29,10 +29,17 @@ A desktop-based **Tic Tac Toe** game developed using **Python** and **Tkinter**,
 # 📂 Project Structure
 
 ```text
-TicTacToe/
+tictactoe/
 │
-├── tic_tac_toe.py
-├── README.md
+├── tictactoe.py          # Main game — Tkinter GUI + AI logic
+├── mat_L.py              # Matplotlib dashboard (line, bar, scatter)
+├── pie.py                # Pie chart — category-wise sales distribution
+├── mat_L-2.py            # Additional Matplotlib examples
+├── mat_L-3.py            # Additional Matplotlib examples
+├── plot.py               # Simple line plot
+├── sea.py / sea1.py      # Seaborn visualizations
+├── market.py             # Market data chart
+└── README.md
 ```
 
 ---
@@ -61,7 +68,7 @@ cd tictactoe
 
 ## Run the Application
 ```bash
-python tic_tac_toe.py
+python tictactoe.py
 ```
 The game window will open automatically.
 ---
@@ -211,3 +218,19 @@ If you found this project useful, consider giving the repository a ⭐ on GitHub
 # Output
 
 ![Tic_Tac_Toe-OUTPUT-Figure](TicTacToe-OUTPUT.png)
+
+---
+
+# 📝 Changelog
+
+## v1.1.0 — Latest
+- ✅ Removed unused `pyparsing` import from `tictactoe.py`
+- ✅ Added module-level docstrings and inline comments to all Python files
+- ✅ Renamed main block variable from `r` to `root` for clarity
+- ✅ Extended `mat_L.py` with a third scatter plot panel
+- ✅ Improved `pie.py` with curated colors, shadow, legend, and portable save path
+- ✅ Fixed `README.md` filename references (`tic_tac_toe.py` → `tictactoe.py`)
+- ✅ Updated project structure to include all scripts
+
+## v1.0.0
+- Initial release with Tic Tac Toe AI and Matplotlib visualizations
