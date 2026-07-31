@@ -1,15 +1,3 @@
-"""
-Tic Tac Toe AI Game
-===================
-A desktop-based Tic Tac Toe game built with Python and Tkinter.
-Features an AI opponent with three difficulty levels:
-  - Easy   : Random moves
-  - Medium : 50% random, 50% Minimax
-  - Hard   : Full Minimax (unbeatable)
-
-Author : Sai Charan
-"""
-
 import random
 import math
 import tkinter as tk
@@ -17,7 +5,6 @@ from tkinter import messagebox, ttk
 
 class TicTacToeGUI:
     """Main GUI class for the Tic Tac Toe game."""
-
     def __init__(self, root):
         """Initialize the game window, board state, and widgets."""
         self.root = root
