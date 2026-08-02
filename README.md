@@ -217,7 +217,9 @@ If you found this project useful, consider giving the repository a ⭐ on GitHub
 
 # Output
 
-![Tic_Tac_Toe-OUTPUT-Figure](TicTacToe-OUTPUT.png)
+![Tic_Tac_Toe-OUTPUT-Figure-1](TicTacToe-OUTPUT-1.png)
+![Tic_Tac_Toe-OUTPUT-Figure-2](TicTacToe-OUTPUT-2.png)
+
 
 ---
 
