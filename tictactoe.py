@@ -1,7 +1,7 @@
 import random
 import math
 import tkinter as tk
-from tkinter import messagebox, ttk
+from tkinter import messagebox,ttk
 
 class TicTacToeGUI:
     """Main GUI class for the Tic Tac Toe game."""
@@ -12,12 +12,11 @@ class TicTacToeGUI:
         self.root.geometry("400x500")
         self.root.resizable(False, False)
 
-        # 3x3 board represented as a list of lists
         self.board = [[" " for _ in range(3)] for _ in range(3)]
         self.current_player = "X"
         self.game_over = False
         self.scores = {"Wins": 0, "Losses": 0, "Draws": 0}
-        self.difficulty = "medium"  # default difficulty
+        self.difficulty = "medium"
         self.create_widgets()
          
     def create_widgets(self): 
@@ -93,7 +92,6 @@ class TicTacToeGUI:
 
     def on_click(self, row, col):
         """Handle a player click on the board at (row, col)."""
-        # Ignore clicks if the game is over or the cell is already occupied
         if self.game_over or self.board[row][col] != " ":
             return
         
@@ -141,7 +139,7 @@ class TicTacToeGUI:
         self.buttons[row][col].config(
             text=player,
             state=tk.DISABLED,
-            fg="red" if player == "X" else "blue"  # X = red, O = blue
+            fg="red" if player == "X" else "blue"
         )
 
     def update_score(self):
@@ -158,62 +156,59 @@ class TicTacToeGUI:
             for j in range(3): 
                 self.buttons[i][j].config(text=" ", state=tk.NORMAL, fg="black") 
      
-    def check_winner(self, player): 
+    def check_winner(self,player): 
         for i in range(3): 
-            if (all(self.board[i][j] == player for j in range(3)) or  
-               all(self.board[j][i] == player for j in range(3))): 
+            if (all(self.board[i][j]==player for j in range(3)) or  
+               all(self.board[j][i]==player for j in range(3))): 
                 
                 return True 
-        if ( all(self.board[i][i] == player for i in range(3)) or  
-           all(self.board[i][2 - i] == player for i in range(3)) ): 
+        if ( all(self.board[i][i]==player for i in range(3)) or  
+           all(self.board[i][2-i]==player for i in range(3)) ): 
             return True 
         return False 
     
-    def check_winner_board(self, board, player):
+    def check_winner_board(self,board,player):
         for row in board:
-            if all(cell == player for cell in row):
+            if all(cell==player for cell in row):
                 return True
 
         for col in range(3):
-            if all(board[row][col] == player for row in range(3)):
+            if all(board[row][col]==player for row in range(3)):
                 return True
             
-        if all(board[i][i] == player for i in range(3)):
+        if all(board[i][i]==player for i in range(3)):
             return True
 
-        if all(board[i][2 - i] == player for i in range(3)):
+        if all(board[i][2-i]==player for i in range(3)):
             return True
-
         return False
- 
 
     def is_draw(self): 
-        return all(cell != " " for row in self.board for cell in row) 
+        return all(cell!=" " for row in self.board for cell in row) 
     
-    def is_draw_board(self, board):
-        return all(cell != " " for row in board for cell in row)
+    def is_draw_board(self,board):
+        return all(cell!=" " for row in board for cell in row)
  
-    def get_available_moves(self, board): 
-        return [(r, c) for r in range(3) for c in range(3) if board[r][c] == " "] 
+    def get_available_moves(self,board): 
+        return [(r,c) for r in range(3) for c in range(3) if board[r][c]==" "] 
 
-    def easy_ai(self, board):
-        """Easy AI: choose a random available cell."""
+    def easy_ai(self,board):
         return random.choice(self.get_available_moves(board))
 
-    def minimax(self, board, depth, is_maximizing):
+    def minimax(self,board,depth,is_maximizing):
         """
         Minimax algorithm for optimal AI decision-making.
         Scores terminal states relative to search depth so the AI
         prefers faster wins and longer losses.
         """
         if self.check_winner_board(board, "O"):
-            return 10 - depth  # AI wins sooner = better score
+            return 10 - depth 
         if self.check_winner_board(board, "X"):
-            return depth - 10  # Player wins sooner = worse score
+            return depth - 10 
         if self.is_draw_board(board):
             return 0
 
-        if is_maximizing:  # AI's turn — maximize score
+        if is_maximizing:
             best_score = -math.inf
             for row, col in self.get_available_moves(board):
                 board[row][col] = "O"
@@ -221,7 +216,7 @@ class TicTacToeGUI:
                 board[row][col] = " "
                 best_score = max(best_score, score)
             return best_score
-        else:  # Player's turn — minimize score
+        else:
             best_score = math.inf
             for row, col in self.get_available_moves(board):
                 board[row][col] = "X"
@@ -231,7 +226,6 @@ class TicTacToeGUI:
             return best_score
 
     def hard_ai(self, board):
-        """Hard AI: use Minimax to find the best possible move."""
         best_score = -math.inf
         best_move = None
         for row, col in self.get_available_moves(board):
@@ -244,16 +238,14 @@ class TicTacToeGUI:
         return best_move
 
     def medium_ai(self, board):
-        """Medium AI: randomly choose between easy (random) and hard (Minimax)."""
         return self.easy_ai(board) if random.random() < 0.5 else self.hard_ai(board)
 
     def ai_move_logic(self, board, difficulty):
-        """Dispatch the AI move to the appropriate strategy based on difficulty."""
-        if difficulty == "easy":
+        if difficulty=="easy":
             return self.easy_ai(board)
-        elif difficulty == "medium":
+        elif difficulty=="medium":
             return self.medium_ai(board)
-        elif difficulty == "hard":
+        elif difficulty=="hard":
             return self.hard_ai(board)
 
 if __name__ == "__main__":
