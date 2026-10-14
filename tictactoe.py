@@ -4,57 +4,54 @@ import tkinter as tk
 from tkinter import messagebox,ttk
 
 class TicTacToeGUI:
-    """Main GUI class for the Tic Tac Toe game."""
-    def __init__(self, root):
-        """Initialize the game window, board state, and widgets."""
-        self.root = root
+    def __init__(self,root):
+        self.root=root
         self.root.title("Tic Tac Toe")
         self.root.geometry("400x500")
-        self.root.resizable(False, False)
+        self.root.resizable(False,False)
 
         self.board = [[" " for _ in range(3)] for _ in range(3)]
-        self.current_player = "X"
-        self.game_over = False
-        self.scores = {"Wins": 0, "Losses": 0, "Draws": 0}
-        self.difficulty = "medium"
+        self.current_player="X"
+        self.game_over=False
+        self.scores={"Wins": 0,"Losses": 0,"Draws": 0}
+        self.difficulty="medium"
         self.create_widgets()
          
     def create_widgets(self): 
-        title_frame = tk.Frame(self.root) 
+        title_frame=tk.Frame(self.root) 
         title_frame.pack(pady=10) 
          
-        self.title_label = tk.Label( 
+        self.title_label=tk.Label( 
             title_frame,  
             text="Tic Tac Toe",  
-            font=("Arial", 20, "bold") 
+            font=("Arial",20,"bold") 
         ) 
         self.title_label.pack() 
          
-        diff_frame = tk.Frame(self.root) 
+        diff_frame=tk.Frame(self.root) 
         diff_frame.pack(pady=5) 
          
-        tk.Label(diff_frame, text="Select Difficulty:").pack(side=tk.LEFT)
-        self.diff_var = tk.StringVar(value=self.difficulty) 
-        diff_menu = ttk.Combobox( 
+        tk.Label(diff_frame,text="Select Difficulty:").pack(side=tk.LEFT)
+        self.diff_var=tk.StringVar(value=self.difficulty) 
+        diff_menu=ttk.Combobox( 
             diff_frame,  
             textvariable=self.diff_var,  
-            values=["easy", "medium", "hard"], 
-            state="readonly", 
-            width=8 
-        ) 
-        diff_menu.pack(side=tk.LEFT, padx=5) 
-        diff_menu.bind("<<ComboboxSelected>>", self.change_difficulty) 
+            values=["easy","medium","hard"], 
+            state="readonly",
+            width=8
+        )
+        diff_menu.pack(side=tk.LEFT,padx=5) 
+        diff_menu.bind("<<ComboboxSelected>>",self.change_difficulty) 
          
-        score_frame = tk.Frame(self.root) 
+        score_frame=tk.Frame(self.root) 
         score_frame.pack(pady=5) 
          
-        self.score_label = tk.Label( 
-    score_frame, 
+        self.score_label=tk.Label( score_frame,
     text=f"Wins: {self.scores['Wins']}  Losses: {self.scores['Losses']}  Draws: {self.scores['Draws']}", 
-    font=("Arial", 10) )
+    font=("Arial",10))
      
         self.score_label.pack()  
-        self.board_frame = tk.Frame(self.root) 
+        self.board_frame=tk.Frame(self.root) 
         self.board_frame.pack(pady=10) 
          
         self.buttons=[] 
