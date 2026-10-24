@@ -10,7 +10,7 @@ class TicTacToeGUI:
         self.root.geometry("400x500")
         self.root.resizable(False,False)
 
-        self.board = [[" " for _ in range(3)] for _ in range(3)]
+        self.board=[[" " for _ in range(3)] for _ in range(3)]
         self.current_player="X"
         self.game_over=False
         self.scores={"Wins": 0,"Losses": 0,"Draws": 0}
@@ -61,12 +61,12 @@ class TicTacToeGUI:
                 button=tk.Button( 
                     self.board_frame, 
                     text=" ", 
-                    font=("Arial", 24, "bold"), 
+                    font=("Arial",24, "bold"), 
                     width=4, 
                     height=2, 
-                    command=lambda r=i, c=j: self.on_click(r, c) 
+                    command=lambda r=i, c=j: self.on_click(r,c) 
                 ) 
-                button.grid(row=i, column=j, padx=5, pady=5) 
+                button.grid(row=i, column=j, padx=5,pady=5) 
                 row.append(button) 
             self.buttons.append(row) 
          
@@ -82,30 +82,30 @@ class TicTacToeGUI:
         ) 
         reset_btn.pack() 
      
-    def change_difficulty(self, event):
+    def change_difficulty(self,event):
         """Handle difficulty change from dropdown and reset the board."""
-        self.difficulty = self.diff_var.get()
+         self.difficulty=self.diff_var.get()
         self.reset_game()
 
-    def on_click(self, row, col):
+    def on_click(self,row,col):
         """Handle a player click on the board at (row, col)."""
-        if self.game_over or self.board[row][col] != " ":
+        if self.game_over or self.board[row][col]!=" ":
             return
         
-        self.make_move(row, col, "X") 
+        self.make_move(row,col,"X") 
          
         if self.check_winner("X"): 
-            self.game_over = True 
-            self.scores["Wins"] += 1 
+            self.game_over=True 
+            self.scores["Wins"]+=1 
             self.update_score() 
             messagebox.showinfo("Game Over", "Congratulations! You win!") 
             return 
          
         if self.is_draw(): 
-            self.game_over = True 
-            self.scores["Draws"] += 1 
+            self.game_over=True 
+            self.scores["Draws"]+=1 
             self.update_score() 
-            messagebox.showinfo("Game Over", "It's a draw!") 
+            messagebox.showinfo("Game Over","It's a draw!") 
             return 
          
         self.root.after(500, self.ai_move)  
@@ -114,44 +114,42 @@ class TicTacToeGUI:
         if self.game_over: 
             return 
              
-        row, col = self.ai_move_logic(self.board, self.difficulty) 
-        self.make_move(row, col, "O") 
+        row,col=self.ai_move_logic(self.board,self.difficulty) 
+        self.make_move(row,col,"O") 
          
         if self.check_winner("O"): 
-            self.game_over = True 
-            self.scores["Losses"] += 1 
+            self.game_over=True 
+            self.scores["Losses"]+=1 
             self.update_score() 
-            messagebox.showinfo("Game Over", "Computer wins! Try again.") 
+            messagebox.showinfo("Game Over","Computer wins! Try again.") 
             return 
          
         if self.is_draw(): 
-            self.game_over = True 
-            self.scores["Draws"] += 1 
+            self.game_over=True 
+            self.scores["Draws"]+=1 
             self.update_score() 
-            messagebox.showinfo("Game Over", "It's a draw!") 
+            messagebox.showinfo("Game Over","It's a draw!") 
      
-    def make_move(self, row, col, player):
-        """Place a player's mark on the board and update the corresponding button."""
-        self.board[row][col] = player
+    def make_move(self,row,col,player):
+        self.board[row][col]=player
         self.buttons[row][col].config(
             text=player,
             state=tk.DISABLED,
-            fg="red" if player == "X" else "blue"
-        )
+            fg="red" if player=="X" else "blue"
+)
 
     def update_score(self):
-        """Refresh the score label with current win/loss/draw counts."""
         self.score_label.config(
             text=f"Wins: {self.scores['Wins']}  Losses: {self.scores['Losses']}  Draws: {self.scores['Draws']}"
         )
      
     def reset_game(self): 
-        self.board = [[" " for _ in range(3)] for _ in range(3)] 
-        self.game_over = False 
+        self.board=[[" " for _ in range(3)] for _ in range(3)] 
+        self.game_over=False 
          
         for i in range(3): 
             for j in range(3): 
-                self.buttons[i][j].config(text=" ", state=tk.NORMAL, fg="black") 
+                self.buttons[i][j].config(text=" ",state=tk.NORMAL,fg="black") 
      
     def check_winner(self,player): 
         for i in range(3): 
