@@ -41,7 +41,6 @@ tictactoe/
 ├── market.py             # Market data chart
 └── README.md
 ```
-
 ---
 
 # 🚀 Getting Started
@@ -65,7 +64,6 @@ Move into the project folder:
 cd tictactoe
 ```
 ---
-
 ## Run the Application
 ```bash
 python tictactoe.py
@@ -85,14 +83,12 @@ The game window will open automatically.
 8. Click **New Game** to start another match.
 
 ---
-
 # 🤖 AI Difficulty Levels
 
 ## 🟢 Easy
 
 * Computer selects moves randomly.
 * Suitable for beginners.
-
 ---
 
 ## 🟡 Medium
@@ -104,7 +100,6 @@ The game window will open automatically.
 This creates a balanced gameplay experience.
 
 ---
-
 ## 🔴 Hard
 
 Uses the **Minimax Algorithm**, which evaluates every possible future game state before making a move.
@@ -115,7 +110,6 @@ The AI:
 * Wins whenever possible.
 * Blocks the player's winning moves.
 * Forces a draw when winning is impossible.
-
 ---
 
 # 🧠 Minimax Algorithm
